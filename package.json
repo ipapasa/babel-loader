@@ -101,6 +101,10 @@
     "test/**/*.test.js": [
       "prettier --trailing-comma all --write ",
       "git add"
+    ],
+    "test/helpers/*.js": [
+      "prettier --trailing-comma all --write ",
+      "git add"
     ]
   }
 }

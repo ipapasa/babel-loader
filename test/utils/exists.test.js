@@ -3,12 +3,12 @@ import path from "path";
 import exists from "../../lib/utils/exists.js";
 
 const cache = {};
-const files  = {
+const files = {
   existent: path.join(__dirname, "../fixtures/basic.js"),
   fake: path.join(__dirname, "../fixtures/nonExistentFile.js"),
 };
 
-test("should return boolean if file exists", (t) => {
+test("should return boolean if file exists", t => {
   const realFile = exists(cache)(files.existent);
   const fakeFile = exists(cache)(files.fake);
 

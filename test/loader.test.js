@@ -26,7 +26,7 @@ const globalConfig = {
 
 // Create a separate directory for each test so that the tests
 // can run in parallel
-test.cb.beforeEach((t) => {
+test.cb.beforeEach(t => {
   createTestDirectory(outputDir, t.title, (err, directory) => {
     if (err) return t.end(err);
     t.context.directory = directory;
@@ -34,16 +34,16 @@ test.cb.beforeEach((t) => {
   });
 });
 
-test.cb.afterEach((t) => rimraf(t.context.directory, t.end));
+test.cb.afterEach(t => rimraf(t.context.directory, t.end));
 
-test.cb("should transpile the code snippet", (t) => {
+test.cb("should transpile the code snippet", t => {
   const config = assign({}, globalConfig, {
     output: {
       path: t.context.directory,
     },
   });
 
-  webpack(config, (err) => {
+  webpack(config, err => {
     t.is(err, null);
 
     fs.readdir(t.context.directory, (err, files) => {
@@ -62,7 +62,7 @@ test.cb("should transpile the code snippet", (t) => {
   });
 });
 
-test.cb("should not throw error on syntax error", (t) => {
+test.cb("should not throw error on syntax error", t => {
   const config = assign({}, globalConfig, {
     entry: path.join(__dirname, "fixtures/syntax.js"),
     output: {
@@ -78,7 +78,7 @@ test.cb("should not throw error on syntax error", (t) => {
   });
 });
 
-test.cb("should use correct env", (t) => {
+test.cb("should use correct env", t => {
   const config = {
     entry: path.join(__dirname, "fixtures/basic.js"),
     output: {
@@ -97,8 +97,8 @@ test.cb("should use correct env", (t) => {
               },
               otherenv: {
                 presets: ["es2015xyz"],
-              }
-            }
+              },
+            },
           },
           exclude: /node_modules/,
         },

@@ -31,7 +31,10 @@
     "eslint": "^3.8.1",
     "eslint-config-babel": "^6.0.0",
     "eslint-plugin-flowtype": "^2.25.0",
+    "husky": "^0.13.2",
+    "lint-staged": "^3.3.1",
     "nyc": "^10.0.0",
+    "prettier": "^0.21.0",
     "react": "^15.1.0",
     "react-intl": "^2.1.2",
     "react-intl-webpack-plugin": "^0.0.3",
@@ -43,8 +46,9 @@
     "build": "babel src/ --out-dir lib/",
     "coverage": "nyc report --reporter=json && codecov -f coverage/coverage-final.json",
     "lint": "eslint src test",
-    "preversion": "npm test",
+    "precommit": "lint-staged",
     "prepublish": "npm run clean && npm run build",
+    "preversion": "npm test",
     "test": "npm run lint && cross-env BABEL_ENV=test npm run build && npm run test-only",
     "test-ci": "cross-env BABEL_ENV=test npm run build && npm run test-only",
     "test-only": "nyc ava"
@@ -88,5 +92,15 @@
       "src/**/*.js"
     ],
     "babel": "inherit"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "prettier --trailing-comma all --write ",
+      "git add"
+    ],
+    "test/**/*.test.js": [
+      "prettier --trailing-comma all --write ",
+      "git add"
+    ]
   }
 }
